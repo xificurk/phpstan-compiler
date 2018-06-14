@@ -56,11 +56,25 @@ final class CompileCommand extends Command
 		$this->processFactory->create(sprintf('git clone %s .', \escapeshellarg($input->getArgument('repository'))), $this->buildDir, $output);
 		$this->processFactory->create(sprintf('git checkout --force %s', \escapeshellarg($input->getArgument('version'))), $this->buildDir, $output);
 		$this->processFactory->create('composer require --no-update dg/composer-cleaner:^2.0', $this->buildDir, $output);
+		$this->fixComposerJson($this->buildDir);
 		$this->processFactory->create('composer update --no-dev --classmap-authoritative', $this->buildDir, $output);
 
 		$this->processFactory->create('php box.phar compile', $this->dataDir, $output);
 
 		return 0;
+	}
+
+	private function fixComposerJson(string $buildDir): void
+	{
+		$json = json_decode($this->filesystem->read($buildDir . '/composer.json'), true);
+
+		// remove dev dependencies (they create conflicts)
+		unset($json['require-dev'], $json['autoload-dev']);
+
+		// simplify autoload (remove not packed build directory]
+		$json['autoload']['psr-4']['PHPStan\\'] = 'src/';
+
+		$this->filesystem->write($buildDir . '/composer.json', json_encode($json, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	}
 
 }

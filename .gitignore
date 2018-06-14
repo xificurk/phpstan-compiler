@@ -1,3 +1,4 @@
 /tmp/build
 /vendor
 /tmp/phpstan.phar
+/tests/Filesystem/data/test.json

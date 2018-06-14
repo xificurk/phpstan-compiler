@@ -11,4 +11,8 @@ interface Filesystem
 
 	public function mkdir(string $dir): void;
 
+	public function read(string $file): string;
+
+	public function write(string $file, string $data): void;
+
 }

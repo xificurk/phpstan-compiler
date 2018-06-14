@@ -28,4 +28,18 @@ final class SymfonyFilesystem implements Filesystem
 		$this->filesystem->mkdir($dir);
 	}
 
+	public function read(string $file): string
+	{
+		$content = file_get_contents($file);
+		if ($content === false) {
+			throw new \RuntimeException();
+		}
+		return $content;
+	}
+
+	public function write(string $file, string $data): void
+	{
+		file_put_contents($file, $data);
+	}
+
 }

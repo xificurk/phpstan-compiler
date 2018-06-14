@@ -18,6 +18,17 @@ final class CompileCommandTest extends TestCase
 		$filesystem->expects(self::once())->method('exists')->with('bar')->willReturn(true);
 		$filesystem->expects(self::once())->method('remove')->with('bar');
 		$filesystem->expects(self::once())->method('mkdir')->with('bar');
+		$filesystem->expects(self::once())->method('read')->with('bar/composer.json')->willReturn('{"require-dev":1,"autoload-dev":2,"autoload":{"psr-4":{"PHPStan\\\\":[3]}}}');
+		$filesystem->expects(self::once())->method('write')->with('bar/composer.json', <<<EOT
+{
+    "autoload": {
+        "psr-4": {
+            "PHPStan\\\\": "src/"
+        }
+    }
+}
+EOT
+);
 
 		$process = $this->createMock(Process::class);
 
