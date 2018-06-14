@@ -8,6 +8,7 @@
         <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions"/>
         <exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly"/>
         <exclude name="Consistence.Exceptions.ExceptionDeclaration"/>
+        <exclude name="Squiz.PHP.Heredoc.NotAllowed"/>
     </rule>
     <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses">
         <properties>
