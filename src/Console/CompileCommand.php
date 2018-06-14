@@ -48,18 +48,20 @@ final class CompileCommand extends Command
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
+		$this->processFactory->setOutput($output);
+
 		if ($this->filesystem->exists($this->buildDir)) {
 			$this->filesystem->remove($this->buildDir);
 		}
 		$this->filesystem->mkdir($this->buildDir);
 
-		$this->processFactory->create(sprintf('git clone %s .', \escapeshellarg($input->getArgument('repository'))), $this->buildDir, $output);
-		$this->processFactory->create(sprintf('git checkout --force %s', \escapeshellarg($input->getArgument('version'))), $this->buildDir, $output);
-		$this->processFactory->create('composer require --no-update dg/composer-cleaner:^2.0', $this->buildDir, $output);
+		$this->processFactory->create(sprintf('git clone %s .', \escapeshellarg($input->getArgument('repository'))), $this->buildDir);
+		$this->processFactory->create(sprintf('git checkout --force %s', \escapeshellarg($input->getArgument('version'))), $this->buildDir);
+		$this->processFactory->create('composer require --no-update dg/composer-cleaner:^2.0', $this->buildDir);
 		$this->fixComposerJson($this->buildDir);
-		$this->processFactory->create('composer update --no-dev --classmap-authoritative', $this->buildDir, $output);
+		$this->processFactory->create('composer update --no-dev --classmap-authoritative', $this->buildDir);
 
-		$this->processFactory->create('php box.phar compile', $this->dataDir, $output);
+		$this->processFactory->create('php box.phar compile', $this->dataDir);
 
 		return 0;
 	}

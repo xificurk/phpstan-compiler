@@ -13,7 +13,10 @@ final class DefaultProcessFactoryTest extends TestCase
 		$output = $this->createMock(OutputInterface::class);
 		$output->expects(self::once())->method('write');
 
-		$process = (new DefaultProcessFactory())->create('ls', __DIR__, $output)->getProcess();
+		$factory = new DefaultProcessFactory();
+		$factory->setOutput($output);
+
+		$process = $factory->create('ls', __DIR__)->getProcess();
 		self::assertSame('ls', $process->getCommandLine());
 		self::assertSame(__DIR__, $process->getWorkingDirectory());
 	}
