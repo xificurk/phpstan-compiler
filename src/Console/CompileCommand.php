@@ -76,6 +76,9 @@ final class CompileCommand extends Command
 		// simplify autoload (remove not packed build directory]
 		$json['autoload']['psr-4']['PHPStan\\'] = 'src/';
 
+		// force platform
+		$json['config']['platform']['php'] = ltrim($json['require']['php'], '~');
+
 		$this->filesystem->write($buildDir . '/composer.json', json_encode($json, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	}
 
