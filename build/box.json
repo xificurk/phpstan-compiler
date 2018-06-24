@@ -1,4 +1,5 @@
 {
+  "alias": "phpstan.phar",
   "banner": false,
   "base-path": "../tmp/build",
   "check-requirements": false,
