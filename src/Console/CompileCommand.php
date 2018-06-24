@@ -78,8 +78,12 @@ final class CompileCommand extends Command
 
 		// force platform
 		$json['config']['platform']['php'] = ltrim($json['require']['php'], '~');
+		$encodedJson = json_encode($json, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+		if ($encodedJson === false) {
+			throw new \Exception('json_encode() was not successful.');
+		}
 
-		$this->filesystem->write($buildDir . '/composer.json', json_encode($json, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+		$this->filesystem->write($buildDir . '/composer.json', $encodedJson);
 	}
 
 }
