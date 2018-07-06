@@ -44,8 +44,48 @@ return [
 				return $content;
 			}
 			return preg_replace(
-				'~PhpParser\\\\~',
-				"$prefix\\PhpParser\\",
+				'~(PhpParser|Pepakriz)(\\\\{1,2})~',
+				"$prefix$2$1$2",
+				$content
+			);
+		},
+		function (string $filePath, string $prefix, string $content): string {
+			if (substr($filePath, 0, 32) !== 'vendor/phpstan/phpstan-doctrine/') {
+				return $content;
+			}
+			return preg_replace(
+				"~$prefix\\\\{1,2}(Doctrine)~",
+				'$1',
+				$content
+			);
+		},
+		function (string $filePath, string $prefix, string $content): string {
+			if (substr($filePath, 0, 28) !== 'vendor/phpstan/phpstan-dibi/') {
+				return $content;
+			}
+			return preg_replace(
+				"~$prefix\\\\{1,2}(Dibi)~",
+				'$1',
+				$content
+			);
+		},
+		function (string $filePath, string $prefix, string $content): string {
+			if (substr($filePath, 0, 29) !== 'vendor/phpstan/phpstan-nette/') {
+				return $content;
+			}
+			return preg_replace(
+				"~$prefix\\\\{1,2}(Nette|Latte|Tracy)~",
+				'$1',
+				$content
+			);
+		},
+		function (string $filePath, string $prefix, string $content): string {
+			if (substr($filePath, 0, 31) !== 'vendor/phpstan/phpstan-phpunit/') {
+				return $content;
+			}
+			return preg_replace(
+				"~$prefix\\\\{1,2}(PHPUnit)~",
+				'$1',
 				$content
 			);
 		},
