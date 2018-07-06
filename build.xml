@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="PHAR Compiler for PHPStan" default="check">
 
-    <target name="check" depends="composer-validate, composer-install, lint, cs, tests, phpstan, compile"/>
+    <target name="check" depends="composer-validate, composer-install, lint, cs, tests, compile, phpstan"/>
 
     <target name="composer-validate">
         <exec executable="composer" logoutput="true" passthru="true" checkreturn="true">
@@ -44,7 +44,7 @@
     </target>
 
     <target name="phpstan">
-        <exec executable="vendor/bin/phpstan" logoutput="true" passthru="true" checkreturn="true">
+        <exec executable="tmp/phpstan.phar" logoutput="true" passthru="true" checkreturn="true">
             <arg value="analyse"/>
             <arg value="-c"/>
             <arg path="build/phpstan.neon"/>
@@ -58,6 +58,7 @@
 
     <target name="compile">
         <exec executable="bin/compile" logoutput="true" passthru="true" checkreturn="true">
+            <arg value="0.10.1"/>
         </exec>
     </target>
 

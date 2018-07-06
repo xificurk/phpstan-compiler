@@ -1,4 +1,9 @@
 includes:
-	- ../vendor/phpstan/phpstan-strict-rules/rules.neon
-	- ../vendor/phpstan/phpstan-phpunit/extension.neon
-	- ../vendor/phpstan/phpstan-phpunit/rules.neon
+    - phar://phpstan.phar/vendor/pepakriz/phpstan-exception-rules/extension.neon
+    - phar://phpstan.phar/vendor/phpstan/phpstan-dibi/extension.neon
+    - phar://phpstan.phar/vendor/phpstan/phpstan-doctrine/extension.neon
+    - phar://phpstan.phar/vendor/phpstan/phpstan-nette/extension.neon
+    - phar://phpstan.phar/vendor/phpstan/phpstan-nette/rules.neon
+    - phar://phpstan.phar/vendor/phpstan/phpstan-phpunit/extension.neon
+    - phar://phpstan.phar/vendor/phpstan/phpstan-phpunit/rules.neon
+    - phar://phpstan.phar/vendor/phpstan/phpstan-strict-rules/rules.neon
