@@ -28,9 +28,29 @@ return [
 			}
 			return str_replace(sprintf('\\%s\\PHPUnit\\Framework\\AssertionFailedError', $prefix), '\\PHPUnit\\Framework\\AssertionFailedError', $content);
 		},
+		function (string $filePath, string $prefix, string $content): string {
+			if ($filePath !== 'vendor/nikic/php-parser/lib/PhpParser/NodeAbstract.php') {
+				return $content;
+			}
+			$length = 15 + strlen($prefix) + 1;
+			return preg_replace(
+				'~strpos\((.+?)\) \+ 15~',
+				sprintf('strpos($1) + %d', $length),
+				$content
+			);
+		},
+		function (string $filePath, string $prefix, string $content): string {
+			if (substr($filePath, -5) !== '.neon') {
+				return $content;
+			}
+			return preg_replace(
+				'~PhpParser\\\\~',
+				"$prefix\\PhpParser\\",
+				$content
+			);
+		},
 	],
 	'whitelist' => [
 		'PHPStan\*',
-		'PhpParser\*',
 	],
 ];
