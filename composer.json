@@ -1,5 +1,5 @@
 {
-    "name": "phpstan/phpstan-compiler",
+    "name": "xificurk/phpstan-compiler",
     "type": "project",
     "description": "PHAR Compiler for PHPStan",
     "license": ["MIT"],
