@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-	'prefix' => null,
+	'prefix' => 'PHPStanVendor',
 	'finders' => [],
 	'patchers' => [
 		function (string $filePath, string $prefix, string $content): string {
