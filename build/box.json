@@ -12,5 +12,6 @@
     "vendor"
   ],
   "output": "../phpstan.phar",
-  "php-scoper": "../../build/scoper.inc.php"
+  "php-scoper": "../../build/scoper.inc.php",
+  "chmod": "0755"
 }
