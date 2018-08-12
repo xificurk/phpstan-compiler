@@ -13,12 +13,12 @@ final class CompileCommand extends Command
 {
 
 	private const BUNDLED_PHPSTAN_EXTENSIONS = [
-		'pepakriz/phpstan-exception-rules',
-		'phpstan/phpstan-dibi',
-		'phpstan/phpstan-doctrine',
-		'phpstan/phpstan-nette',
-		'phpstan/phpstan-phpunit',
-		'phpstan/phpstan-strict-rules',
+		'pepakriz/phpstan-exception-rules' => '~0.2.0',
+		'phpstan/phpstan-dibi' => '*',
+		'phpstan/phpstan-doctrine' => '*',
+		'phpstan/phpstan-nette' => '*',
+		'phpstan/phpstan-phpunit' => '*',
+		'phpstan/phpstan-strict-rules' => '*',
 	];
 
 	/** @var Filesystem */
@@ -67,8 +67,8 @@ final class CompileCommand extends Command
 		$this->processFactory->create(sprintf('git clone %s .', \escapeshellarg($input->getArgument('repository'))), $this->buildDir);
 		$this->processFactory->create(sprintf('git checkout --force %s', \escapeshellarg($input->getArgument('version'))), $this->buildDir);
 		$this->processFactory->create('composer require --no-update dg/composer-cleaner:^2.0', $this->buildDir);
-		foreach (self::BUNDLED_PHPSTAN_EXTENSIONS as $extensionName) {
-			$this->processFactory->create(sprintf('composer require --no-update %s:*', $extensionName), $this->buildDir);
+		foreach (self::BUNDLED_PHPSTAN_EXTENSIONS as $extensionName => $extensionVersion) {
+			$this->processFactory->create(sprintf('composer require --no-update %s:%s', $extensionName, $extensionVersion), $this->buildDir);
 		}
 		$this->fixComposerJson($this->buildDir);
 		$this->processFactory->create('composer update --no-dev --classmap-authoritative', $this->buildDir);
@@ -92,7 +92,7 @@ final class CompileCommand extends Command
 		$json['config']['platform']['php'] = ltrim($json['require']['php'], '~');
 
 		// keep neons from extensions
-		foreach (self::BUNDLED_PHPSTAN_EXTENSIONS as $extensionName) {
+		foreach (array_keys(self::BUNDLED_PHPSTAN_EXTENSIONS) as $extensionName) {
 			$json['config']['cleaner-ignore'][$extensionName] = [
 				'extension.neon',
 				'rules.neon',
