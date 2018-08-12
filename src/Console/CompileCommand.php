@@ -16,6 +16,7 @@ final class CompileCommand extends Command
 		'pepakriz/phpstan-exception-rules' => '~0.2.0',
 		'phpstan/phpstan-dibi' => '*',
 		'phpstan/phpstan-doctrine' => '*',
+		'phpstan/phpstan-mockery' => '*',
 		'phpstan/phpstan-nette' => '*',
 		'phpstan/phpstan-phpunit' => '*',
 		'phpstan/phpstan-strict-rules' => '*',
