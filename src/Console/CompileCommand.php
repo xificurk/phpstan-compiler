@@ -13,7 +13,7 @@ final class CompileCommand extends Command
 {
 
 	private const BUNDLED_PHPSTAN_EXTENSIONS = [
-		'pepakriz/phpstan-exception-rules' => '~0.2.0',
+		'pepakriz/phpstan-exception-rules' => '*',
 		'phpstan/phpstan-dibi' => '*',
 		'phpstan/phpstan-doctrine' => '*',
 		'phpstan/phpstan-mockery' => '*',

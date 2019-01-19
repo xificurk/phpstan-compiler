@@ -75,7 +75,7 @@ EOT
 		$processFactory->expects(self::at(1))->method('create')->with('git clone \'https://github.com/phpstan/phpstan.git\' .', 'bar')->willReturn($process);
 		$processFactory->expects(self::at(2))->method('create')->with('git checkout --force \'master\'', 'bar')->willReturn($process);
 		$processFactory->expects(self::at(3))->method('create')->with('composer require --no-update dg/composer-cleaner:^2.0', 'bar')->willReturn($process);
-		$processFactory->expects(self::at(4))->method('create')->with('composer require --no-update pepakriz/phpstan-exception-rules:~0.2.0', 'bar')->willReturn($process);
+		$processFactory->expects(self::at(4))->method('create')->with('composer require --no-update pepakriz/phpstan-exception-rules:*', 'bar')->willReturn($process);
 		$processFactory->expects(self::at(5))->method('create')->with('composer require --no-update phpstan/phpstan-dibi:*', 'bar')->willReturn($process);
 		$processFactory->expects(self::at(6))->method('create')->with('composer require --no-update phpstan/phpstan-doctrine:*', 'bar')->willReturn($process);
 		$processFactory->expects(self::at(7))->method('create')->with('composer require --no-update phpstan/phpstan-mockery:*', 'bar')->willReturn($process);
