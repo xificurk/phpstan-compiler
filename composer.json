@@ -5,18 +5,18 @@
     "license": "MIT",
     "require": {
         "php": "^7.1",
-        "symfony/console": "^4.1",
-        "symfony/process": "^4.1",
-        "symfony/filesystem": "^4.1",
+        "symfony/console": "^4.2",
+        "symfony/process": "^4.2",
+        "symfony/filesystem": "^4.2",
         "nette/utils": "^2.5 || ^3.0"
     },
     "require-dev": {
         "jakub-onderka/php-parallel-lint": "^1.0",
         "phing/phing": "^2.16",
-        "phpunit/phpunit": "^7.2",
-        "consistence/coding-standard": "^3.3",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
-        "slevomat/coding-standard": "^4.6.2"
+        "phpunit/phpunit": "^7.5",
+        "consistence/coding-standard": "^3.4",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.5",
+        "slevomat/coding-standard": "^4.8"
     },
     "autoload": {
         "psr-4": {
