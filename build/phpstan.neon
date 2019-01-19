@@ -12,3 +12,8 @@ parameters:
                 - LogicException
                 - Symfony\Component\Filesystem\Exception\IOException
                 - Symfony\Component\Process\Exception\RuntimeException
+
+    ignoreErrors:
+            -
+                message: '#Unused @throws Symfony\\Component\\Console\\Exception\\LogicException annotation#' # inherited throws annotation
+                path: %currentWorkingDirectory%/src/Console/CompileCommand.php

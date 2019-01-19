@@ -68,7 +68,7 @@
 
     <target name="compile">
         <exec executable="bin/compile" logoutput="true" passthru="true" checkreturn="true">
-            <arg value="0.10.3"/>
+            <arg value="0.11"/>
         </exec>
     </target>
 
