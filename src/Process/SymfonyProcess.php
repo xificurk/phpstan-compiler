@@ -12,7 +12,7 @@ final class SymfonyProcess implements Process
 
 	public function __construct(string $command, string $cwd, OutputInterface $output)
 	{
-		$this->process = (new \Symfony\Component\Process\Process($command, $cwd, null, null, null))
+		$this->process = (\Symfony\Component\Process\Process::fromShellCommandline($command, $cwd, null, null, null))
 			->mustRun(function (string $type, string $buffer) use ($output): void {
 				$output->write($buffer);
 			});

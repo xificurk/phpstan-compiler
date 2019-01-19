@@ -66,8 +66,13 @@ final class CompileCommand extends Command
 		}
 		$this->filesystem->mkdir($this->buildDir);
 
-		$this->processFactory->create(sprintf('git clone %s .', \escapeshellarg($input->getArgument('repository'))), $this->buildDir);
-		$this->processFactory->create(sprintf('git checkout --force %s', \escapeshellarg($input->getArgument('version'))), $this->buildDir);
+		/** @var string $repository */
+		$repository = $input->getArgument('repository');
+		/** @var string $version */
+		$version = $input->getArgument('version');
+
+		$this->processFactory->create(sprintf('git clone %s .', \escapeshellarg($repository)), $this->buildDir);
+		$this->processFactory->create(sprintf('git checkout --force %s', \escapeshellarg($version)), $this->buildDir);
 		$this->processFactory->create('composer require --no-update dg/composer-cleaner:^2.0', $this->buildDir);
 		foreach (self::BUNDLED_PHPSTAN_EXTENSIONS as $extensionName => $extensionVersion) {
 			$this->processFactory->create(sprintf('composer require --no-update %s:%s', $extensionName, $extensionVersion), $this->buildDir);
