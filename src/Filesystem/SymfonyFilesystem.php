@@ -32,7 +32,9 @@ final class SymfonyFilesystem implements Filesystem
 	{
 		$content = file_get_contents($file);
 		if ($content === false) {
-			throw new \RuntimeException();
+			throw new \Symfony\Component\Filesystem\Exception\IOException(
+				sprintf('Failed to read the contents of "%s".', $file)
+			);
 		}
 		return $content;
 	}

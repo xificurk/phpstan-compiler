@@ -2,6 +2,7 @@
 
 namespace PHPStan\Compiler\Console;
 
+use Nette\Utils\Json;
 use PHPStan\Compiler\Filesystem\Filesystem;
 use PHPStan\Compiler\Process\ProcessFactory;
 use Symfony\Component\Console\Command\Command;
@@ -81,7 +82,7 @@ final class CompileCommand extends Command
 
 	private function fixComposerJson(string $buildDir): void
 	{
-		$json = json_decode($this->filesystem->read($buildDir . '/composer.json'), true);
+		$json = Json::decode($this->filesystem->read($buildDir . '/composer.json'), Json::FORCE_ARRAY);
 
 		// remove dev dependencies (they create conflicts)
 		unset($json['require-dev'], $json['autoload-dev']);
@@ -100,10 +101,7 @@ final class CompileCommand extends Command
 			];
 		}
 
-		$encodedJson = json_encode($json, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-		if ($encodedJson === false) {
-			throw new \Exception('json_encode() was not successful.');
-		}
+		$encodedJson = Json::encode($json, Json::PRETTY);
 
 		$this->filesystem->write($buildDir . '/composer.json', $encodedJson);
 	}

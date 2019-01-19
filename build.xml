@@ -49,9 +49,19 @@
             <arg value="-c"/>
             <arg path="build/phpstan.neon"/>
             <arg value="-l"/>
-            <arg value="7"/>
+            <arg value="max"/>
             <arg path="bin"/>
             <arg path="src"/>
+        </exec>
+    </target>
+
+    <target name="phpstan">
+        <exec executable="tmp/phpstan.phar" logoutput="true" passthru="true" checkreturn="true">
+            <arg value="analyse"/>
+            <arg value="-c"/>
+            <arg path="build/phpstan.tests.neon"/>
+            <arg value="-l"/>
+            <arg value="max"/>
             <arg path="tests"/>
         </exec>
     </target>
