@@ -29,6 +29,12 @@ return [
 			return str_replace(sprintf('\\%s\\PHPUnit\\Framework\\AssertionFailedError', $prefix), '\\PHPUnit\\Framework\\AssertionFailedError', $content);
 		},
 		function (string $filePath, string $prefix, string $content): string {
+			if ($filePath !== 'src/Reflection/SignatureMap/functionMap.php') {
+				return $content;
+			}
+			return preg_replace("~$prefix\\\\{1,2}~", '', $content);
+		},
+		function (string $filePath, string $prefix, string $content): string {
 			if ($filePath !== 'vendor/nikic/php-parser/lib/PhpParser/NodeAbstract.php') {
 				return $content;
 			}
@@ -85,6 +91,16 @@ return [
 			}
 			return preg_replace(
 				"~$prefix\\\\{1,2}(PHPUnit)~",
+				'$1',
+				$content
+			);
+		},
+		function (string $filePath, string $prefix, string $content): string {
+			if (substr($filePath, 0, 31) !== 'vendor/phpstan/phpstan-mockery/') {
+				return $content;
+			}
+			return preg_replace(
+				"~$prefix\\\\{1,2}(Mockery)~",
 				'$1',
 				$content
 			);
