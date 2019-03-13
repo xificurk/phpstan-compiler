@@ -16,7 +16,8 @@
         "phpunit/phpunit": "^7.5",
         "consistence/coding-standard": "^3.4",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.5",
-        "slevomat/coding-standard": "^4.8"
+        "slevomat/coding-standard": "^4.8",
+        "doctrine/orm": "^2.6.0"
     },
     "autoload": {
         "psr-4": {
