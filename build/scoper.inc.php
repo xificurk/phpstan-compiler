@@ -11,10 +11,24 @@ return [
 			return str_replace('__DIR__ . \'/..', '\'phar://phpstan.phar', $content);
 		},
 		function (string $filePath, string $prefix, string $content): string {
-			if ($filePath !== 'vendor/nette/di/src/DI/Compiler.php') {
+			if (substr($filePath, 0, 23) !== 'vendor/nette/di/src/DI/') {
 				return $content;
 			}
-			return str_replace('|Nette\\\\DI\\\\Statement', sprintf('|\\\\%s\\\\Nette\\\\DI\\\\Statement', $prefix), $content);
+			return str_replace(
+				'|Nette\\\\DI\\\\Definitions\\\\Statement',
+				sprintf('|\\\\%s\\\\Nette\\\\DI\\\\Definitions\\\\Statement', $prefix),
+				$content
+			);
+		},
+		function (string $filePath, string $prefix, string $content): string {
+			if (substr($filePath, 0, 23) !== 'vendor/nette/di/src/DI/') {
+				return $content;
+			}
+			return preg_replace(
+				"~$prefix\\\\{1,2}(string|int|float|null|callable)~",
+				'$1',
+				$content
+			);
 		},
 		function (string $filePath, string $prefix, string $content): string {
 			if ($filePath !== 'src/Testing/TestCase.php') {
